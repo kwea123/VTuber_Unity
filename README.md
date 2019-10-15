@@ -34,12 +34,15 @@ Here we assume that you have installed the requirements and activated the virtua
 
 ## 1.  Face detection test
 Run `python demo.py --debug`. (add `--cpu` if you have CPU only)
+
 You should see the following:
+
 Video or picture here?
 
 ## 2.  Synchronize with the virtual character
 1.  Execute `unity.x86_64` to launch the unity window featuring the virtual character (unity-chan here).
 2.  After the vitual character shows up, run `python demo.py --connect` to synchronize your face features with the virtual character. (add `--debug` to see your face and `--cpu` if you have CPU only as of step 1.)
+
 You should see the following:
 
 Enjoy your VTuber life!
@@ -48,7 +51,7 @@ Enjoy your VTuber life!
 In this section, I will describe the functionalities implemented and a little about the technology behind.
 
 ## 1.  Head pose estimation
-Using [credit 1](https://github.com/yinguobing/head-pose-estimation) and [credit 2](https://github.com/1adrianb/face-alignment) ,deep learning methods are applied to do the following: face detection and facial landmark detection. A face bounding box and the 68-point facial landmark is detected, then I use a PnP algorithm to obtain the head pose (the rotation of the face). Finally, kalman filters are applied to the angles to make them smoother.
+Using [credit 1](https://github.com/yinguobing/head-pose-estimation) and [credit 2](https://github.com/1adrianb/face-alignment), deep learning methods are applied to do the following: face detection and facial landmark detection. A face bounding box and the 68-point facial landmark is detected, then a PnP algorithm is used to obtain the head pose (the rotation of the face). Finally, kalman filters are applied to the pose to make it smoother.
 
 ## 2.  Gaze estimation
 Using [credit 3](https://github.com/antoinelame/GazeTracking)
