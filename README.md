@@ -17,7 +17,7 @@ And the virtual character [unity-chan](http://unity-chan.com/) © UTJ/UCL.
 
 ## Hardware
 *  OS: Ubuntu 16.04 (Windows support is under testing)
-*  (Optional but recommended) An NVIDIA GPU with CUDA>=9.0
+*  (Optional but recommended) An NVIDIA GPU (tested with CUDA 9.0 but may also work with other versions)
 
 ## Software
 *  Unity 
