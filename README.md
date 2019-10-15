@@ -8,7 +8,7 @@ Youtube Playlist (Chinese):
 # Credits
 First of all, I'd like to give credits to the following projects that I borrow code from:
 1.  [head-pose-estimation](https://github.com/yinguobing/head-pose-estimation) [LICENSE](licenses/LICENSE.head-pose-estimation)
-2.  [face-alignment](https://github.com/1adrianb/face-alignment) [LICENSE](licenses/LICENSE.face_alignment)
+2.  [face-alignment](https://github.com/1adrianb/face-alignment) [LICENSE](licenses/LICENSE.face-alignment)
 
 And the virtual character [unity-chan](http://unity-chan.com/) © UTJ/UCL.
 
