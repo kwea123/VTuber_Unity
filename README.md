@@ -88,7 +88,7 @@ As for the visualization, the red crosses indicate the iris.
 3.  The mouth distance is used to detect smile and synchronize with the character.
 
 # Unity Project
-If you want to customize the virtual character, please switch to branch "unityprojects" and you can find the whole project locating at `UnityProjects`. (It is built using version 2019.1.0f)
+If you want to customize the virtual character, you can find the unity project in [release](https://github.com/kwea123/VTuber_Unity/releases).
 
 # License
 [MIT License](LICENSE)
