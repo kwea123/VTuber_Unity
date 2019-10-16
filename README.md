@@ -65,14 +65,14 @@ Enjoy your VTuber life!
 # Functionalities details
 In this section, I will describe the functionalities implemented and a little about the technology behind.
 
-## 1.  Head pose estimation
+## Head pose estimation
 Using [head-pose-estimation](https://github.com/yinguobing/head-pose-estimation) and [face-alignment](https://github.com/1adrianb/face-alignment), deep learning methods are applied to do the following: face detection and facial landmark detection. A face bounding box and the 68-point facial landmark is detected, then a PnP algorithm is used to obtain the head pose (the rotation of the face). Finally, kalman filters are applied to the pose to make it smoother.
 
 The character's head pose is synchronized.
 
 As for the visualization, the white bounding box is the detected face, on top of which 68 green face landmarks are plotted. The head pose is represented by the green frustum and the axes in front of the nose.
 
-## 2.  Gaze estimation
+## Gaze estimation
 Using [GazeTracking](https://github.com/antoinelame/GazeTracking), The eyes are first extracted using the landmarks enclosing the eyes. Then the eye images are converted to grayscale, and a pixel intensity threshold is applied to detect the iris (the black part of the eye). Finally, the center of the iris is computed as the center of the black area.
 
 The character's gaze is not synchronized. (Since I didn't find a way to move unity-chan's eyes)
