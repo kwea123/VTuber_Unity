@@ -48,7 +48,7 @@ You should see the following:
 </p>
 
 ## 2.  Synchronize with the virtual character
-1.  Execute `UnityProjects/TestUnityChan/linux_x86_64/unitychan.x86_64` or `UnityProjects/TestUnityChan/windows_x86_64/unitychan.exe` depending on your OS to launch the unity window featuring the virtual character (unity-chan here).
+1.  Download and launch the binaries [here](https://github.com/kwea123/VTuber_Unity/releases) depending on your OS to launch the unity window featuring the virtual character (unity-chan here).
 **Important: Ensure that only one window is opened at a time!**
 2.  After the vitual character shows up, run `python demo.py --connect` to synchronize your face features with the virtual character. (add `--debug` to see your face and `--cpu` if you have CPU only as step 1.)
 
