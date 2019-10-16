@@ -119,24 +119,24 @@ def main():
 
             if args.debug:
 
-                # Uncomment following lines to show iris.
+                # show iris.
                 if x_l > 0 and y_l > 0:
                     draw_iris(frame, x_l, y_l)
                 if x_r > 0 and y_r > 0:
                     draw_iris(frame, x_r, y_r)
 
-                # Uncomment following line to show raw marks.
+                # show face landmarks.
                 draw_marks(frame, marks, color=(0, 255, 0))
 
-                # Uncomment following line to show facebox.
+                # show facebox.
                 draw_box(frame, [facebox])
 
-                # Uncomment following line to draw stable pose annotation on frame.
+                # draw stable pose annotation on frame.
                 pose_estimator.draw_annotation_box(
                     frame, np.expand_dims(steady_pose[:3],0), np.expand_dims(steady_pose[3:6],0), 
                     color=(128, 255, 128))
 
-                # Uncomment following line to draw head axes on frame.
+                # draw head axes on frame.
                 pose_estimator.draw_axes(frame, np.expand_dims(steady_pose[:3],0), 
                                          np.expand_dims(steady_pose[3:6],0))
 
@@ -152,13 +152,16 @@ def main():
                       (roll, pitch, yaw, min_ear, mar, mdst, steady_pose[6], steady_pose[7])
                 s.send(bytes(msg, "utf-8"))
 
+
         dt = time.time()-t
+        FPS = int(1/dt)
         ts += [dt]
         print('\r', '%.3f'%dt, end=' ')
 
         if args.debug:
+            draw_FPS(frame, FPS)
             cv2.imshow("face", frame)
-            if cv2.waitKey(1) & 0xFF == ord('q'):
+            if cv2.waitKey(1) & 0xFF == ord('q'): # press q to exit.
                 break
 
     # Clean up the multiprocessing process.
