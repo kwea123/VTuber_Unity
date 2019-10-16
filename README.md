@@ -48,7 +48,8 @@ You should see the following:
 </p>
 
 ## 2.  Synchronize with the virtual character
-1.  Execute `unity.x86_64` to launch the unity window featuring the virtual character (unity-chan here).
+1.  Execute `unitychan.x86_64` to launch the unity window featuring the virtual character (unity-chan here).
+**Important: Ensure that only one window is opened at a time!**
 2.  After the vitual character shows up, run `python demo.py --connect` to synchronize your face features with the virtual character. (add `--debug` to see your face and `--cpu` if you have CPU only as step 1.)
 
 You should see the following:
