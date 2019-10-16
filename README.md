@@ -48,7 +48,7 @@ You should see the following:
 </p>
 
 ## 2.  Synchronize with the virtual character
-1.  Execute `UnityProjects/TestUnityChan/unitychan.x86_64` to launch the unity window featuring the virtual character (unity-chan here).
+1.  Execute `UnityProjects/TestUnityChan/linux_x86_64/unitychan.x86_64` or `UnityProjects/TestUnityChan/windows_x86_64/unitychan.exe` depending on your OS to launch the unity window featuring the virtual character (unity-chan here).
 **Important: Ensure that only one window is opened at a time!**
 2.  After the vitual character shows up, run `python demo.py --connect` to synchronize your face features with the virtual character. (add `--debug` to see your face and `--cpu` if you have CPU only as step 1.)
 
@@ -86,6 +86,9 @@ As for the visualization, the red crosses indicate the iris.
 2.  Estimate [mouth aspect ratio](https://www.google.com/search?rlz=1C1GCEU_jaJP829JP829&sxsrf=ACYBGNR1ME-HV3c5avZ15yahkkQd1omjpw%3A1571114646809&ei=lk6lXcyIMZ-Rr7wP0OCX8A4&q=mouth+aspect+ratio&oq=mouth+aspect+ratio&gs_l=psy-ab.3..35i39j0i203.30193.31394..31535...0.0..0.109.710.4j3......0....1..gws-wiz.......0i7i30j0i8i30j0i10i30j0i7i10i30j0i8i7i30j0i13j0i13i30j0i13i5i30.IWlXGoyW5GE&ved=0ahUKEwjMq7KTup3lAhWfyIsBHVDwBe4Q4dUDCAs&uact=5): I use this number to synchronize with the character's mouth.
 
 3.  The mouth distance is used to detect smile and synchronize with the character.
+
+# Unity Project
+If you want to customize the virtual character, please switch to branch "unityprojects" and you can find the whole project locating at `UnityProjects`. (It is built using version 2019.1.0f)
 
 # License
 [MIT License](LICENSE)
