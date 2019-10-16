@@ -76,7 +76,11 @@ As for the visualization, the red crosses indicate the iris.
 
 ## Miscellaneous
 
-Estimate [eye aspect ratio](https://www.google.com/search?q=eye+aspect+ratio&rlz=1C1GCEU_jaJP829JP829&oq=eye&aqs=chrome.0.69i59j69i57j69i65j69i61.846j0j7&sourceid=chrome&ie=UTF-8), [mouth aspect ratio](https://www.google.com/search?rlz=1C1GCEU_jaJP829JP829&sxsrf=ACYBGNR1ME-HV3c5avZ15yahkkQd1omjpw%3A1571114646809&ei=lk6lXcyIMZ-Rr7wP0OCX8A4&q=mouth+aspect+ratio&oq=mouth+aspect+ratio&gs_l=psy-ab.3..35i39j0i203.30193.31394..31535...0.0..0.109.710.4j3......0....1..gws-wiz.......0i7i30j0i8i30j0i10i30j0i7i10i30j0i8i7i30j0i13j0i13i30j0i13i5i30.IWlXGoyW5GE&ved=0ahUKEwjMq7KTup3lAhWfyIsBHVDwBe4Q4dUDCAs&uact=5), etc.
+1.  Estimate [eye aspect ratio](https://www.google.com/search?q=eye+aspect+ratio&rlz=1C1GCEU_jaJP829JP829&oq=eye&aqs=chrome.0.69i59j69i57j69i65j69i61.846j0j7&sourceid=chrome&ie=UTF-8): The eye aspect ratio can be used to detect blinking, but currently I just use auto blinking since this estimation is not so accurate.
+
+2.  Estimate [mouth aspect ratio](https://www.google.com/search?rlz=1C1GCEU_jaJP829JP829&sxsrf=ACYBGNR1ME-HV3c5avZ15yahkkQd1omjpw%3A1571114646809&ei=lk6lXcyIMZ-Rr7wP0OCX8A4&q=mouth+aspect+ratio&oq=mouth+aspect+ratio&gs_l=psy-ab.3..35i39j0i203.30193.31394..31535...0.0..0.109.710.4j3......0....1..gws-wiz.......0i7i30j0i8i30j0i10i30j0i7i10i30j0i8i7i30j0i13j0i13i30j0i13i5i30.IWlXGoyW5GE&ved=0ahUKEwjMq7KTup3lAhWfyIsBHVDwBe4Q4dUDCAs&uact=5): I use this number to synchronize with the character's mouth.
+
+3.  The mouth distance is used to detect smile and synchronize with the character.
 
 # License
 [MIT License](LICENSE)
