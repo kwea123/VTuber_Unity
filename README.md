@@ -37,14 +37,24 @@ Here we assume that you have installed the requirements and activated the virtua
 Run `python demo.py --debug`. (add `--cpu` if you have CPU only)
 
 You should see the following:
-
-Video or picture here?
+<p align="center">
+  <img src="images/debug_cpu.gif", width="45%">
+  <img src="images/debug_gpu.gif", width="45%">
+  <br>
+  <sup>Left: CPU model. Right: GPU model run on a GTX1080Ti.</sup>
+</p>
 
 ## 2.  Synchronize with the virtual character
 1.  Execute `unity.x86_64` to launch the unity window featuring the virtual character (unity-chan here).
 2.  After the vitual character shows up, run `python demo.py --connect` to synchronize your face features with the virtual character. (add `--debug` to see your face and `--cpu` if you have CPU only as of step 1.)
 
 You should see the following:
+<p align="center">
+  <img src="images/debug_cpu_connect.gif", width="45%">
+  <img src="images/debug_gpu_connect.gif", width="45%">
+  <br>
+  <sup>Left: CPU model. Right: GPU model run on a GTX1080Ti.</sup>
+</p>
 
 Enjoy your VTuber life!
 
