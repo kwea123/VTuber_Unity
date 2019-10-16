@@ -26,7 +26,7 @@ And the virtual character [unity-chan](http://unity-chan.com/) © UTJ/UCL.
    * For Windows CPU users, if [dlib](https://github.com/davisking/dlib) cannot be properly installed, follow [here](https://github.com/kwea123/VTuber_Unity/wiki/Dlib-installation-on-Windows).
 *  Optional
    * [OBS Studio](https://obsproject.com/) if you want to embed the virtual character into your videos.
-   *  Unity Editor (if you want to customize the virtual character) 
+   *  Unity Editor if you want to customize the virtual character.
        *  [Linux installation](https://forum.unity.com/threads/unity-on-linux-release-notes-and-known-issues.350256/)
        *  [Windows installation](https://unity3d.com/get-unity/download)
    
