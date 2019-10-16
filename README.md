@@ -23,7 +23,7 @@ And the virtual character [unity-chan](http://unity-chan.com/) © UTJ/UCL.
 *  Unity 
    *  [linux installation](https://forum.unity.com/threads/unity-on-linux-release-notes-and-known-issues.350256/)
    *  [Windows installation](https://unity3d.com/get-unity/download)
-*  Python3.6 (may be compatible with other versions)
+*  Python3.x (installation via [Anaconda](https://www.anaconda.com/distribution/) is recommended)
    * (Optional) It is recommended to use conda environments. Run `conda create -n vtuber python=3.6`. Activate it by `source activate vtuber`.
    * Install the requirements by `pip install -r requirements_(cpu or gpu).txt`.
 *  Optional
