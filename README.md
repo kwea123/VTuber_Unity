@@ -20,15 +20,15 @@ And the virtual character [unity-chan](http://unity-chan.com/) © UTJ/UCL.
 *  (Optional but recommended) An NVIDIA GPU (tested with CUDA 9.0 but may also work with other versions)
 
 ## Software
-*  Unity 
-   *  [Linux installation](https://forum.unity.com/threads/unity-on-linux-release-notes-and-known-issues.350256/)
-   *  [Windows installation](https://unity3d.com/get-unity/download)
 *  Python3.x (installation via [Anaconda](https://www.anaconda.com/distribution/) is recommended)
    * (Optional) It is recommended to use conda environments. Run `conda create -n vtuber python=3.6`. Activate it by `source activate vtuber`.
    * Install the requirements by `pip install -r requirements_(cpu or gpu).txt`.
    * For Windows CPU users, if [dlib](https://github.com/davisking/dlib) cannot be properly installed, follow [here](https://github.com/kwea123/VTuber_Unity/wiki/Dlib-installation-on-Windows).
 *  Optional
    * [OBS Studio](https://obsproject.com/) if you want to embed the virtual character into your videos.
+   *  Unity Editor (if you want to customize the virtual character) 
+       *  [Linux installation](https://forum.unity.com/threads/unity-on-linux-release-notes-and-known-issues.350256/)
+       *  [Windows installation](https://unity3d.com/get-unity/download)
    
 # Example usage
 Here we assume that you have installed the requirements and activated the virtual environment you are using.
