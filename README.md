@@ -48,7 +48,8 @@ You should see the following:
 </p>
 
 ## 2.  Synchronize with the virtual character
-1.  Execute `unity.x86_64` to launch the unity window featuring the virtual character (unity-chan here).
+1.  Execute `unitychan.x86_64` to launch the unity window featuring the virtual character (unity-chan here).
+**Important: Ensure that only one window is opened at a time!**
 2.  After the vitual character shows up, run `python demo.py --connect` to synchronize your face features with the virtual character. (add `--debug` to see your face and `--cpu` if you have CPU only as step 1.)
 
 You should see the following:
@@ -67,16 +68,24 @@ In this section, I will describe the functionalities implemented and a little ab
 ## 1.  Head pose estimation
 Using [head-pose-estimation](https://github.com/yinguobing/head-pose-estimation) and [face-alignment](https://github.com/1adrianb/face-alignment), deep learning methods are applied to do the following: face detection and facial landmark detection. A face bounding box and the 68-point facial landmark is detected, then a PnP algorithm is used to obtain the head pose (the rotation of the face). Finally, kalman filters are applied to the pose to make it smoother.
 
+The character's head pose is synchronized.
+
 As for the visualization, the white bounding box is the detected face, on top of which 68 green face landmarks are plotted. The head pose is represented by the green frustum and the axes in front of the nose.
 
 ## 2.  Gaze estimation
 Using [GazeTracking](https://github.com/antoinelame/GazeTracking), The eyes are first extracted using the landmarks enclosing the eyes. Then the eye images are converted to grayscale, and a pixel intensity threshold is applied to detect the iris (the black part of the eye). Finally, the center of the iris is computed as the center of the black area.
 
+The character's gaze is not synchronized. (Since I didn't find a way to move unity-chan's eyes)
+
 As for the visualization, the red crosses indicate the iris.
 
 ## Miscellaneous
 
-Estimate [eye aspect ratio](https://www.google.com/search?q=eye+aspect+ratio&rlz=1C1GCEU_jaJP829JP829&oq=eye&aqs=chrome.0.69i59j69i57j69i65j69i61.846j0j7&sourceid=chrome&ie=UTF-8), [mouth aspect ratio](https://www.google.com/search?rlz=1C1GCEU_jaJP829JP829&sxsrf=ACYBGNR1ME-HV3c5avZ15yahkkQd1omjpw%3A1571114646809&ei=lk6lXcyIMZ-Rr7wP0OCX8A4&q=mouth+aspect+ratio&oq=mouth+aspect+ratio&gs_l=psy-ab.3..35i39j0i203.30193.31394..31535...0.0..0.109.710.4j3......0....1..gws-wiz.......0i7i30j0i8i30j0i10i30j0i7i10i30j0i8i7i30j0i13j0i13i30j0i13i5i30.IWlXGoyW5GE&ved=0ahUKEwjMq7KTup3lAhWfyIsBHVDwBe4Q4dUDCAs&uact=5), etc.
+1.  Estimate [eye aspect ratio](https://www.google.com/search?q=eye+aspect+ratio&rlz=1C1GCEU_jaJP829JP829&oq=eye&aqs=chrome.0.69i59j69i57j69i65j69i61.846j0j7&sourceid=chrome&ie=UTF-8): The eye aspect ratio can be used to detect blinking, but currently I just use auto blinking since this estimation is not so accurate.
+
+2.  Estimate [mouth aspect ratio](https://www.google.com/search?rlz=1C1GCEU_jaJP829JP829&sxsrf=ACYBGNR1ME-HV3c5avZ15yahkkQd1omjpw%3A1571114646809&ei=lk6lXcyIMZ-Rr7wP0OCX8A4&q=mouth+aspect+ratio&oq=mouth+aspect+ratio&gs_l=psy-ab.3..35i39j0i203.30193.31394..31535...0.0..0.109.710.4j3......0....1..gws-wiz.......0i7i30j0i8i30j0i10i30j0i7i10i30j0i8i7i30j0i13j0i13i30j0i13i5i30.IWlXGoyW5GE&ved=0ahUKEwjMq7KTup3lAhWfyIsBHVDwBe4Q4dUDCAs&uact=5): I use this number to synchronize with the character's mouth.
+
+3.  The mouth distance is used to detect smile and synchronize with the character.
 
 # License
 [MIT License](LICENSE)
