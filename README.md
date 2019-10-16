@@ -7,9 +7,12 @@ Youtube Playlist (Chinese):
 --------------------------------------------------------------------------------
 # Credits
 First of all, I'd like to give credits to the following projects that I borrow code from:
-1.  [head-pose-estimation](https://github.com/yinguobing/head-pose-estimation) [LICENSE](licenses/LICENSE.head-pose-estimation)
-2.  [face-alignment](https://github.com/1adrianb/face-alignment) [LICENSE](licenses/LICENSE.face-alignment)
-3.  [GazeTracking](https://github.com/antoinelame/GazeTracking) [LICENSE](licenses/LICENSE.GazeTracking)
+
+| Project | LICENSE |
+|:---:|----|
+| [head-pose-estimation](https://github.com/yinguobing/head-pose-estimation) | [LICENSE](licenses/LICENSE.head-pose-estimation) |
+| [face-alignment](https://github.com/1adrianb/face-alignment) | [LICENSE](licenses/LICENSE.face-alignment) |
+| [GazeTracking](https://github.com/antoinelame/GazeTracking) | [LICENSE](licenses/LICENSE.GazeTracking) |
 
 And the virtual character [unity-chan](http://unity-chan.com/) © UTJ/UCL.
 
@@ -46,7 +49,7 @@ You should see the following:
 
 ## 2.  Synchronize with the virtual character
 1.  Execute `unity.x86_64` to launch the unity window featuring the virtual character (unity-chan here).
-2.  After the vitual character shows up, run `python demo.py --connect` to synchronize your face features with the virtual character. (add `--debug` to see your face and `--cpu` if you have CPU only as of step 1.)
+2.  After the vitual character shows up, run `python demo.py --connect` to synchronize your face features with the virtual character. (add `--debug` to see your face and `--cpu` if you have CPU only as step 1.)
 
 You should see the following:
 <p align="center">
@@ -62,10 +65,14 @@ Enjoy your VTuber life!
 In this section, I will describe the functionalities implemented and a little about the technology behind.
 
 ## 1.  Head pose estimation
-Using [credit 1](https://github.com/yinguobing/head-pose-estimation) and [credit 2](https://github.com/1adrianb/face-alignment), deep learning methods are applied to do the following: face detection and facial landmark detection. A face bounding box and the 68-point facial landmark is detected, then a PnP algorithm is used to obtain the head pose (the rotation of the face). Finally, kalman filters are applied to the pose to make it smoother.
+Using [head-pose-estimation](https://github.com/yinguobing/head-pose-estimation) and [face-alignment](https://github.com/1adrianb/face-alignment), deep learning methods are applied to do the following: face detection and facial landmark detection. A face bounding box and the 68-point facial landmark is detected, then a PnP algorithm is used to obtain the head pose (the rotation of the face). Finally, kalman filters are applied to the pose to make it smoother.
+
+As for the visualization, the white bounding box is the detected face, on top of which 68 green face landmarks are plotted. The head pose is represented by the green frustum and the axes in front of the nose.
 
 ## 2.  Gaze estimation
-Using [credit 3](https://github.com/antoinelame/GazeTracking)
+Using [GazeTracking](https://github.com/antoinelame/GazeTracking), The eyes are first extracted using the landmarks enclosing the eyes. Then the eye images are converted to grayscale, and a pixel intensity threshold is applied to detect the iris (the black part of the eye). Finally, the center of the iris is computed as the center of the black area.
+
+As for the visualization, the red crosses indicate the iris.
 
 ## Miscellaneous
 
