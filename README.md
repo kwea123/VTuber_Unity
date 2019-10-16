@@ -16,16 +16,17 @@ And the virtual character [unity-chan](http://unity-chan.com/) © UTJ/UCL.
 # Installation
 
 ## Hardware
-*  OS: Ubuntu 16.04 (Windows support is under testing)
+*  OS: Ubuntu 16.04 (Windows 64bits support is under testing)
 *  (Optional but recommended) An NVIDIA GPU (tested with CUDA 9.0 but may also work with other versions)
 
 ## Software
 *  Unity 
-   *  [linux installation](https://forum.unity.com/threads/unity-on-linux-release-notes-and-known-issues.350256/)
+   *  [Linux installation](https://forum.unity.com/threads/unity-on-linux-release-notes-and-known-issues.350256/)
    *  [Windows installation](https://unity3d.com/get-unity/download)
 *  Python3.x (installation via [Anaconda](https://www.anaconda.com/distribution/) is recommended)
    * (Optional) It is recommended to use conda environments. Run `conda create -n vtuber python=3.6`. Activate it by `source activate vtuber`.
    * Install the requirements by `pip install -r requirements_(cpu or gpu).txt`.
+   * For Windows CPU users, if [dlib](https://github.com/davisking/dlib) cannot be properly installed via `pip`, please follow [here](https://github.com/davisking/dlib#compiling-dlib-python-api) to install. ([Visual Studio](https://docs.microsoft.com/en-us/visualstudio/install/install-visual-studio?view=vs-2019)(MSVC>19.11) is required)
 *  Optional
    * [OBS Studio](https://obsproject.com/) if you want to embed the virtual character into your videos.
    
