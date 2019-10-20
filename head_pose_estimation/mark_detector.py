@@ -1,7 +1,10 @@
 import cv2
 import numpy as np
-import tensorflow as tf
-
+try:
+	import tensorflow as tf
+except:
+	pass
+	
 class FaceDetector:
     def __init__(self,
                  dnn_proto_text='head_pose_estimation/assets/deploy.prototxt',
