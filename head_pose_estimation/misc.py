@@ -22,6 +22,13 @@ def mouth_distance(mouth):
     return np.linalg.norm(mouth[0]-mouth[4])
 
 def detect_iris(frame, marks, side='left'):
+    """
+    return:
+       x: the x coordinate of the iris.
+       y: the y coordinate of the iris.
+       x_rate: how much the iris is toward the left. 0 means totally left and 1 is totally right.
+       y_rate: how much the iris is toward the top. 0 means totally top and 1 is totally bottom.
+    """
     mask = np.full(frame.shape[:2], 255, np.uint8)
     if side == 'left':
         region = marks[36:42].astype(np.int32)
