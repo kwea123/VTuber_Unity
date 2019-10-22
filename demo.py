@@ -6,11 +6,13 @@ import numpy as np
 import time
 import socket
 
-from head_pose_estimation.mark_detector import MarkDetector
 from head_pose_estimation.pose_estimator import PoseEstimator
 from head_pose_estimation.stabilizer import Stabilizer
 from head_pose_estimation.visualization import *
 from head_pose_estimation.misc import *
+
+import tensorflow as tf
+import numpy as np
 
 def get_face(detector, img_queue, box_queue, cpu=False):
     if cpu:
@@ -39,21 +41,20 @@ def main():
         face_detector = dlib.get_frontal_face_detector()
         predictor = dlib.shape_predictor('head_pose_estimation/assets/shape_predictor_68_face_landmarks.dat')
     else: # use better models on GPU
-        import face_alignment
-        face_detector = MarkDetector()
-        fa = face_alignment.FaceAlignment(face_alignment.LandmarksType._2D, flip_input=False)
+        import face_alignment, dlib
+        fa = face_alignment.FaceAlignment(face_alignment.LandmarksType._2D, use_onnx=True, flip_input=False)
 
     cap = cv2.VideoCapture(args.cam)
     cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
     _, sample_frame = cap.read()
 
     # Setup process and queues for multiprocessing.
-    img_queue = Queue()
-    box_queue = Queue()
-    img_queue.put(sample_frame)
-    box_process = Process(target=get_face, args=(
-        face_detector, img_queue, box_queue, args.cpu,))
-    box_process.start()
+    # img_queue = Queue()
+    # box_queue = Queue()
+    # img_queue.put(sample_frame)
+    # box_process = Process(target=get_face, args=(
+    #     face_detector, img_queue, box_queue, True,))
+    # box_process.start()
 
     # Introduce pose estimator to solve pose. Get one frame to setup the
     # estimator according to the image size.
@@ -86,8 +87,13 @@ def main():
         # 2. detect landmarks;
         # 3. estimate pose
 
-        img_queue.put(frame)
-        facebox = box_queue.get()
+        # img_queue.put(frame)
+        # facebox = box_queue.get()
+        # facebox = face_detector.extract_cnn_facebox(frame)
+        frame_ = cv2.resize(frame, None, fx=0.25, fy=0.25)
+        facebox = fa.face_detector.detect_from_image(frame_[..., ::-1])[0]
+        if facebox is not None:
+            facebox = (4*facebox[:4]).astype(int)
 
         if facebox is not None:
             # Do face detection, facial landmark detection and iris detection.
@@ -154,8 +160,8 @@ def main():
 
 
         dt = time.time()-t
-        FPS = int(1/dt)
         ts += [dt]
+        FPS = int(1/(np.mean(ts[-10:])+1e-6))
         print('\r', '%.3f'%dt, end=' ')
 
         if args.debug:
@@ -165,8 +171,8 @@ def main():
                 break
 
     # Clean up the multiprocessing process.
-    box_process.terminate()
-    box_process.join()
+    # box_process.terminate()
+    # box_process.join()
     cap.release()
     if args.connect:
         s.close()

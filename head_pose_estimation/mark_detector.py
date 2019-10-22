@@ -1,9 +1,6 @@
 import cv2
 import numpy as np
-try:
-	import tensorflow as tf
-except:
-	pass
+import tensorflow as tf
 	
 class FaceDetector:
     def __init__(self,
