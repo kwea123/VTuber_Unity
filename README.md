@@ -19,7 +19,7 @@ And the virtual character [unity-chan](http://unity-chan.com/) © UTJ/UCL.
 # Installation
 
 ## Hardware
-*  OS: Ubuntu 16.04, Windows 10 64bits
+*  OS: Ubuntu 16.04, Windows 10 64bits (**Currently only CPU works on Windows!**)
 *  (Optional but recommended) An NVIDIA GPU (tested with CUDA 9.0 but may also work with other versions)
 
 ## Software
