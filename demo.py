@@ -5,13 +5,13 @@ import cv2
 import numpy as np
 import time
 import socket
+from collections import deque
 
 from head_pose_estimation.pose_estimator import PoseEstimator
 from head_pose_estimation.stabilizer import Stabilizer
 from head_pose_estimation.visualization import *
 from head_pose_estimation.misc import *
 
-import tensorflow as tf
 import numpy as np
 
 def get_face(detector, img_queue, box_queue, cpu=False):
@@ -39,12 +39,15 @@ def main():
     if args.cpu: # use dlib to do face detection and facial landmark detection
         import dlib 
         face_detector = dlib.get_frontal_face_detector()
-        predictor = dlib.shape_predictor('head_pose_estimation/assets/shape_predictor_68_face_landmarks.dat')
+        dlib_model_path = 'head_pose_estimation/assets/shape_predictor_68_face_landmarks.dat'
+        predictor = dlib.shape_predictor(dlib_model_path)
     else: # use better models on GPU
         import face_alignment, dlib
-        fa = face_alignment.FaceAlignment(face_alignment.LandmarksType._2D, use_onnx=True, flip_input=False)
+        fa = face_alignment.FaceAlignment(face_alignment.LandmarksType._2D, use_onnx=True, 
+                                          flip_input=False)
 
-    cap = cv2.VideoCapture(args.cam)
+    cap = cv2.VideoCapture(args.cam+cv2.CAP_DSHOW) # CAP_DSHOW is required on my PC to get 30 FPS
+    cap.set(cv2.CAP_PROP_FPS, 30)
     cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
     _, sample_frame = cap.read()
 
@@ -74,11 +77,17 @@ def main():
 
     ts = []
     frame_count = 0
+    prev_boxes = deque(maxlen=5)
+    prev_marks = deque(maxlen=5)
 
     while True:
         _, frame = cap.read()
         frame = cv2.flip(frame, 2)
         frame_count += 1
+        if args.connect and frame_count > 60: # send information to unity
+            msg = '%.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f'% \
+                  (roll, pitch, yaw, min_ear, mar, mdst, steady_pose[6], steady_pose[7])
+            s.send(bytes(msg, "utf-8"))
 
         t = time.time()
 
@@ -89,23 +98,34 @@ def main():
 
         # img_queue.put(frame)
         # facebox = box_queue.get()
-        # facebox = face_detector.extract_cnn_facebox(frame)
-        frame_ = cv2.resize(frame, None, fx=0.25, fy=0.25)
-        facebox = fa.face_detector.detect_from_image(frame_[..., ::-1])[0]
-        if facebox is not None:
-            facebox = (4*facebox[:4]).astype(int)
+        if frame_count % 2 == 1: # do face detection every odd frame
+            frame_ = cv2.resize(frame, None, fx=0.5, fy=0.5)
+            facebox = fa.face_detector.detect_from_image(frame_)[0]
+            if facebox is not None:
+                facebox = (2*facebox[:4]).astype(int)
+        elif len(prev_boxes) > 1: # use a linear movement assumption
+            facebox = prev_boxes[-1] + np.mean(np.diff(np.array(prev_boxes), axis=0), axis=0)[0]
+            facebox = facebox.astype(int)
+        prev_boxes.append(facebox)
 
         if facebox is not None:
             # Do face detection, facial landmark detection and iris detection.
             if args.cpu:
-                face = dlib.rectangle(left=facebox[0], top=facebox[1], right=facebox[2], bottom=facebox[3])
+                face = dlib.rectangle(left=facebox[0], top=facebox[1], 
+                                      right=facebox[2], bottom=facebox[3])
                 marks = shape_to_np(predictor(frame, face))
             else:
-                face_img = frame[facebox[1]: facebox[3], facebox[0]: facebox[2]]
-                marks = fa.get_landmarks(face_img[:,:,::-1], 
-                        detected_faces=[(0, 0, facebox[2]-facebox[0], facebox[3]-facebox[1])])[-1]
-                marks[:, 0] += facebox[0]
-                marks[:, 1] += facebox[1]
+                if frame_count == 1 or frame_count % 2 == 0: # do landmark detection on first frame
+                                                             # or every even frame
+                    face_img = frame[facebox[1]: facebox[3], facebox[0]: facebox[2]]
+                    marks = fa.get_landmarks(face_img[:,:,::-1], 
+                            detected_faces=[(0, 0, facebox[2]-facebox[0], facebox[3]-facebox[1])])
+                    marks = marks[-1]
+                    marks[:, 0] += facebox[0]
+                    marks[:, 1] += facebox[1]
+                elif len(prev_marks) > 1: # use a linear movement assumption
+                    marks = prev_marks[-1] + np.mean(np.diff(np.array(prev_marks), axis=0), axis=0)
+                prev_marks.append(marks)
 
             x_l, y_l, ll, lu = detect_iris(frame, marks, "left")
             x_r, y_r, rl, ru = detect_iris(frame, marks, "right")
@@ -152,12 +172,7 @@ def main():
             min_ear = min(eye_aspect_ratio(marks[36:42]), eye_aspect_ratio(marks[42:48]))
             mar = mouth_aspect_ration(marks[60:68])
             mdst = mouth_distance(marks[60:68])/(facebox[2]-facebox[0])
-
-            if args.connect and frame_count > 60:
-                msg = '%.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f'% \
-                      (roll, pitch, yaw, min_ear, mar, mdst, steady_pose[6], steady_pose[7])
-                s.send(bytes(msg, "utf-8"))
-
+            
 
         dt = time.time()-t
         ts += [dt]
