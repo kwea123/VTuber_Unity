@@ -68,6 +68,7 @@ def main():
                         cov_process=0.01,
                         cov_measure=0.1) for _ in range(8)]
 
+    # Establish a TCP connection to unity.
     if args.connect:
         address = ('127.0.0.1', 5066)
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
