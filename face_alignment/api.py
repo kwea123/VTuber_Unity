@@ -74,7 +74,7 @@ class FaceAlignment:
             self.sess = ort.InferenceSession(os.path.join(base_path, "2DFAN_optimized.onnx"))
             self.inp = self.sess.get_inputs()[0].name
         else:
-            self.face_alignment_net = FAN(network_size, fused)
+            self.face_alignment_net = FAN(network_size)
             if landmarks_type == LandmarksType._2D:
                 network_name = '2DFAN-' + str(network_size) + '.pth.tar'
             else:
@@ -184,14 +184,7 @@ class FaceAlignment:
 
         landmarks = []
         for i, d in enumerate(detected_faces):
-            if self.use_onnx:
-                center = np.array(
-                    [d[2] - (d[2] - d[0]) / 2.0, d[3] -
-                     (d[3] - d[1]) / 2.0])
-            else:
-                center = torch.FloatTensor(
-                    [d[2] - (d[2] - d[0]) / 2.0, d[3] -
-                     (d[3] - d[1]) / 2.0])
+            center = np.array([(d[2] + d[0]) / 2.0, (d[3] + d[1]) / 2.0])
             center[1] = center[1] - (d[3] - d[1]) * 0.12
             scale = (d[2] - d[0] +
                      d[3] - d[1]) / self.face_detector.reference_scale
@@ -221,7 +214,7 @@ class FaceAlignment:
                         out += flip(self.face_alignment_net(flip(inp))
                                     [-1], is_label=True)
                 out = out.cpu()
-                pts, pts_img = get_preds_fromhm(out, center, scale)
+                pts, pts_img = get_preds_fromhm(out, torch.FloatTensor(center), scale)
                 pts, pts_img = pts.view(68, 2) * 4, pts_img.view(68, 2)
 
             if self.landmarks_type == LandmarksType._3D:
