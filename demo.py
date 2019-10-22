@@ -108,7 +108,7 @@ def main():
                 facebox = facebox.astype(int)
                 no_face_count += 1
 
-        if facebox is not None:
+        if facebox is not None: # if face is detected
             prev_boxes.append(facebox)
             # Do facial landmark detection and iris detection.
             if args.cpu: # do detection every frame
