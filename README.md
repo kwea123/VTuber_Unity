@@ -48,7 +48,7 @@ And the virtual character [unity-chan](http://unity-chan.com/) © UTJ/UCL.
 Here we assume that you have installed the requirements and activated the virtual environment you are using.
 
 ## 0.  Model download
-You need to download the models [here](aa) and put into `face_alignment/ckpts`.
+You need to download the models [here](https://github.com/kwea123/VTuber_Unity/releases/tag/v1.0), extract and put into `face_alignment/ckpts`.
 
 If you don't use `onnxruntime`, you can omit this step as the script will automatically download them for you.
 
