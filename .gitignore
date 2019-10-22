@@ -1,5 +1,6 @@
-.vs
+.vs/
 releases/
+face_alignment/ckpts/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

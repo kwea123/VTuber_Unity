@@ -18,7 +18,7 @@ class SFDDetector(FaceDetector):
     def __init__(self, device, path_to_detector=None, verbose=False):
         super(SFDDetector, self).__init__(device, verbose)
 
-        base_path = os.path.join(appdata_dir('face_alignment'), "data")
+        base_path = "face_alignment/ckpts"
 
         # Initialise the face detector
         if path_to_detector is None:

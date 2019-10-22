@@ -51,7 +51,7 @@ class FaceAlignment:
         self.landmarks_type = landmarks_type
         self.verbose = verbose
         self.use_onnx = use_onnx
-        base_path = os.path.join(appdata_dir('face_alignment'), "data")
+        base_path = "face_alignment/ckpts"
 
         network_size = int(network_size)
 
