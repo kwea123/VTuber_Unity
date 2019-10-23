@@ -13,7 +13,7 @@ from head_pose_estimation.misc import *
 
 def get_face(detector, image, cpu=False):
     if cpu:
-        image = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
+        image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         try:
             box = detector(image)[0]
             x1 = box.left()
