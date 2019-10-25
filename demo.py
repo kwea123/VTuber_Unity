@@ -6,18 +6,24 @@ import socket
 from collections import deque
 from platform import system
 
-from head_pose_estimation.mark_detector import FaceDetector
+# from head_pose_estimation.mark_detector import FaceDetector # experimental
 from head_pose_estimation.pose_estimator import PoseEstimator
 from head_pose_estimation.stabilizer import Stabilizer
 from head_pose_estimation.visualization import *
 from head_pose_estimation.misc import *
 
 def get_face(detector, image, cpu=False):
-    if True:
-        _, faceboxes = detector.get_faceboxes(image)
-        if len(faceboxes) > 0:
-            return faceboxes[0]
-        return None
+    if cpu:
+        image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        try:
+            box = detector(image)[0]
+            x1 = box.left()
+            y1 = box.top()
+            x2 = box.right()
+            y2 = box.bottom()
+            return [x1, y1, x2, y2]
+        except:
+            return None
     else:
         image = cv2.resize(image, None, fx=0.5, fy=0.5)
         box = detector.detect_from_image(image)[0]
@@ -31,7 +37,7 @@ def main():
         import dlib
         dlib_model_path = 'head_pose_estimation/assets/shape_predictor_68_face_landmarks.dat'
         shape_predictor = dlib.shape_predictor(dlib_model_path)
-        face_detector = FaceDetector()
+        face_detector = dlib.get_frontal_face_detector()
     else: # use better models on GPU
         import face_alignment # the local directory in this repo
         try:
