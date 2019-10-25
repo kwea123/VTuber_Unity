@@ -28,7 +28,7 @@ And the virtual character [unity-chan](http://unity-chan.com/) © UTJ/UCL.
 *  Python libraries
    * Ubuntu:
       * Install the requirements by `pip install -r requirements_(cpu or gpu).txt`
-      * If you have CUDA 10., `pip install onnxruntime-gpu` to get faster inference speed using onnx model.
+      * If you have CUDA 10.1, `pip install onnxruntime-gpu` to get faster inference speed using onnx model.
    * Windows:
       * CPU:
          *  `pip install -r requirements_cpu.txt`
