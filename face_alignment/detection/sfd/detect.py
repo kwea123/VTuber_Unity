@@ -27,7 +27,7 @@ def detect(net, img, device):
         FB, FC, FH, FW = ocls.size()  # feature map size
         stride = 2**(i + 2)    # 4,8,16,32,64,128
         anchor = stride * 4
-        poss = zip(*np.where(ocls[:, 1, :, :] > 0.8))
+        poss = zip(*np.where(ocls[:, 1, :, :] > 0.05))
         for Iindex, hindex, windex in poss:
             axc, ayc = stride / 2 + windex * stride, stride / 2 + hindex * stride
             score = ocls[0, 1, hindex, windex]
@@ -37,7 +37,7 @@ def detect(net, img, device):
             box = decode(loc, priors, variances)
             x1, y1, x2, y2 = box[0]
             bboxlist.append([x1, y1, x2, y2, score])
-            break # take only the box with the highest score!
+            # break # take only the box with the highest score!
 
     bboxlist = np.array(bboxlist)
     if 0 == len(bboxlist):
