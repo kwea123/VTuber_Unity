@@ -40,9 +40,7 @@ def detect(net, img, device):
             # break # take only the box with the highest score!
 
     bboxlist = np.array(bboxlist)
-    if 0 == len(bboxlist):
-        bboxlist = [None]
-
+    
     return bboxlist
 
 
