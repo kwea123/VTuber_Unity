@@ -1,7 +1,9 @@
 # VTuber_Unity
 Use Unity 3D character and Python deep learning algorithms to stream as a VTuber!
 
-Youtube Playlist (Chinese):
+This is part of the [OpenVTuberProject](https://github.com/kwea123/OpenVTuberProject), which provides many toolkits for becoming a VTuber.
+
+Youtube Playlist (Chinese) (Covers videos 1-4):
 [![teaser](images/teaser.jpg)](https://www.youtube.com/playlist?list=PLDV2CyUo4q-JFGrpG595jMdWZLwYOnu4p)
 
 --------------------------------------------------------------------------------
