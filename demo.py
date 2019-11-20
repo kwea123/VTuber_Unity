@@ -6,7 +6,6 @@ import socket
 from collections import deque
 from platform import system
 
-# from head_pose_estimation.mark_detector import FaceDetector # experimental
 from head_pose_estimation.pose_estimator import PoseEstimator
 from head_pose_estimation.stabilizer import Stabilizer
 from head_pose_estimation.visualization import *
@@ -133,40 +132,22 @@ def main():
             x_r, y_r, rl, ru = detect_iris(frame, marks, "right")
 
             # Try pose estimation with 68 points.
-            R, T = pose_estimator.solve_pose_by_68_points(marks)
+            error, R, T = pose_estimator.solve_pose_by_68_points(marks)
             pose = list(R) + list(T)
             # Add iris positions to stabilize.
             pose+= [(ll+rl)/2.0, (lu+ru)/2.0]
 
-            # Stabilize the pose.
-            steady_pose = []
-            pose_np = np.array(pose).flatten()
-            for value, ps_stb in zip(pose_np, pose_stabilizers):
-                ps_stb.update([value])
-                steady_pose.append(ps_stb.state[0])
+            if error > 100: # large error means tracking fails: reinitialize pose estimator
+                            # at the same time, keep sending the same information (e.g. same roll)
+                pose_estimator = PoseEstimator(img_size=sample_frame.shape[:2])
 
-            if args.debug: # draw landmarks, etc.
-
-                # show iris.
-                if x_l > 0 and y_l > 0:
-                    draw_iris(frame, x_l, y_l)
-                if x_r > 0 and y_r > 0:
-                    draw_iris(frame, x_r, y_r)
-
-                # show face landmarks.
-                draw_marks(frame, marks, color=(0, 255, 0))
-
-                # show facebox.
-                draw_box(frame, [facebox])
-
-                # draw stable pose annotation on frame.
-                pose_estimator.draw_annotation_box(
-                    frame, np.expand_dims(steady_pose[:3],0), np.expand_dims(steady_pose[3:6],0), 
-                    color=(128, 255, 128))
-
-                # draw head axes on frame.
-                pose_estimator.draw_axes(frame, np.expand_dims(steady_pose[:3],0), 
-                                         np.expand_dims(steady_pose[3:6],0))
+            else:
+                # Stabilize the pose.
+                steady_pose = []
+                pose_np = np.array(pose).flatten()
+                for value, ps_stb in zip(pose_np, pose_stabilizers):
+                    ps_stb.update([value])
+                    steady_pose.append(ps_stb.state[0])
 
             roll = np.clip(-(180+np.degrees(steady_pose[2])), -50, 50)
             pitch = np.clip(-(np.degrees(steady_pose[1]))-15, -40, 40)
@@ -175,6 +156,29 @@ def main():
             mar = mouth_aspect_ration(marks[60:68])
             mdst = mouth_distance(marks[60:68])/(facebox[2]-facebox[0])
             
+            if args.debug: # draw landmarks, etc.
+
+                # show iris.
+                if x_l > 0 and y_l > 0:
+                    draw_iris(frame, x_l, y_l)
+                if x_r > 0 and y_r > 0:
+                    draw_iris(frame, x_r, y_r)
+
+                # show facebox.
+                draw_box(frame, [facebox])
+
+                if error < 100:
+                    # show face landmarks.
+                    draw_marks(frame, marks, color=(0, 255, 0))
+
+                    # draw stable pose annotation on frame.
+                    pose_estimator.draw_annotation_box(
+                        frame, np.expand_dims(steady_pose[:3],0), np.expand_dims(steady_pose[3:6],0), 
+                        color=(128, 255, 128))
+
+                    # draw head axes on frame.
+                    pose_estimator.draw_axes(frame, np.expand_dims(steady_pose[:3],0), 
+                                             np.expand_dims(steady_pose[3:6],0))
 
         dt = time.time()-t
         ts += [dt]

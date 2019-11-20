@@ -106,7 +106,14 @@ class PoseEstimator:
             tvec=self.t_vec,
             useExtrinsicGuess=True)
 
-        return (rotation_vector, translation_vector)
+        R, _ = cv2.Rodrigues(rotation_vector)
+        points_3d = R.dot(self.model_points_68.T) + translation_vector # 3x68
+        reproject_image_points = self.camera_matrix.dot(points_3d).T # 68x2
+        reproject_image_points /= reproject_image_points[:, 2:3]
+        reproject_image_points = reproject_image_points[:, :2]
+        reprojection_error = np.mean((image_points - reproject_image_points)**2)
+
+        return reprojection_error, rotation_vector, translation_vector
 
     def draw_annotation_box(self, image, rotation_vector, translation_vector, color=(255, 255, 255), line_width=2):
         """Draw a 3D box as annotation of pose"""
