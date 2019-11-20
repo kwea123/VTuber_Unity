@@ -150,7 +150,7 @@ def main():
                     steady_pose.append(ps_stb.state[0])
 
             roll = np.clip(-(180+np.degrees(steady_pose[2])), -50, 50)
-            pitch = np.clip(-(np.degrees(steady_pose[1]))-15, -40, 40)
+            pitch = np.clip(-(np.degrees(steady_pose[1]))-15, -40, 40) # the 15 here is my camera angle.
             yaw = np.clip(-(np.degrees(steady_pose[0])), -50, 50)
             min_ear = min(eye_aspect_ratio(marks[36:42]), eye_aspect_ratio(marks[42:48]))
             mar = mouth_aspect_ration(marks[60:68])
