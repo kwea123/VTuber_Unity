@@ -21,8 +21,8 @@ And the virtual character [unity-chan](http://unity-chan.com/) © UTJ/UCL.
 # Installation
 
 ## Hardware
-*  OS: Ubuntu 16.04 or Windows 10 64bits
-*  (Optional but recommended) An NVIDIA GPU (tested with CUDA 9.0 and 10.0, but may also work with other versions)
+*  OS: Ubuntu 16.04 (18.04 may also work) or Windows 10 64bits
+*  (Optional but recommended) An NVIDIA GPU (tested with CUDA 9.0, 10.0 and 10.1, but may also work with other versions)
 
 ## Software
 *  Python3.x (installation via [Anaconda](https://www.anaconda.com/distribution/) is recommended; **mandatory for Windows users**)
