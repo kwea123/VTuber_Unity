@@ -26,7 +26,7 @@ And the virtual character [unity-chan](http://unity-chan.com/) © UTJ/UCL.
 
 ## Software
 *  Python3.x (installation via [Anaconda](https://www.anaconda.com/distribution/) is recommended; **mandatory for Windows users**)
-   * (Optional) It is recommended to use conda environments. Run `conda create -n vtuber python=3.6`. Activate it by `source activate vtuber`.
+   * (Optional) It is recommended to use conda environments. Run `conda create -n vtuber python=3.6`. Activate it by `conda activate vtuber`.
 *  Python libraries
    * Ubuntu:
       * Install the requirements by `pip install -r requirements_(cpu or gpu).txt`
