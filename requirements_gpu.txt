@@ -2,3 +2,4 @@ numpy<1.17
 opencv-python>4
 torch<=1.2.0
 numba
+scipy>0.16

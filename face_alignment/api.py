@@ -2,8 +2,8 @@ from __future__ import print_function
 import os
 import torch
 from enum import Enum
-from skimage import io
-from skimage import color
+# from skimage import io
+# from skimage import color
 import numpy as np
 import cv2
 try:
