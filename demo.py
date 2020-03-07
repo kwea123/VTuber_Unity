@@ -116,8 +116,10 @@ def main():
                                       right=facebox[2], bottom=facebox[3])
                 marks = shape_to_np(shape_predictor(frame, face))
             else:
-                if frame_count == 1 or frame_count % 2 == 0: # do landmark detection on first frame
-                                                             # or every even frame
+                if len(prev_marks) == 0 \
+                    or frame_count == 1 \
+                    or frame_count % 2 == 0: # do landmark detection on first frame
+                                             # or every even frame
                     face_img = frame[facebox[1]: facebox[3], facebox[0]: facebox[2]]
                     marks = fa.get_landmarks(face_img[:,:,::-1], 
                             detected_faces=[(0, 0, facebox[2]-facebox[0], facebox[3]-facebox[1])])
