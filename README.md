@@ -36,8 +36,8 @@ And the virtual character [unity-chan](http://unity-chan.com/) © UTJ/UCL.
          *  `pip install -r requirements_cpu.txt`
          *  if [dlib](https://github.com/davisking/dlib) cannot be properly installed, follow [here](https://github.com/kwea123/VTuber_Unity/wiki/Dlib-installation-on-Windows).
       * GPU: 
-         *  Install [pytorch](https://pytorch.org/) using `conda`.
-         * Install other dependencies in `requirements_gpu.txt` by `pip`.
+         * Install [pytorch](https://pytorch.org/) using `conda`. Example: `conda install pytorch==1.2.0 torchvision==0.4.0 cudatoolkit=10.0 -c pytorch`
+         * Install other dependencies by `pip install -r requirements_gpu.txt`.
          * If you have CUDA 10, `pip install onnxruntime-gpu` to get faster inference speed using onnx model.
            
 *  Optional
