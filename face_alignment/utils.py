@@ -185,7 +185,7 @@ def transform_np(point, center, scale, resolution, invert=False):
     t[1, 2] = resolution * (-center[1] / h + 0.5)
 
     if invert:
-        t = np.linalg.pinv(t)
+        t = np.ascontiguousarray(np.linalg.pinv(t))
 
     new_point = np.dot(t, _pt)[0:2]
 
