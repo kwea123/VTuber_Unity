@@ -1,4 +1,7 @@
 # VTuber_Unity
+
+## 2021/9/1: Due to massive bugs and the fast-moving virtual character technology, I decide to archive this repository (no updates anymore). Nowadays you can basically find many public tools on the internet, even for mobile platforms. This repository doesn't work as well as those tools, but can still serve as a tool if you want to integrate your character in Unity and custom it (e.g. play around with Unity objects).
+
 Use Unity 3D character and Python deep learning algorithms to stream as a VTuber!
 
 This is part of the [OpenVTuberProject](https://github.com/kwea123/OpenVTuberProject), which provides many toolkits for becoming a VTuber.
